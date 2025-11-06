@@ -24,14 +24,12 @@
     { host, user}:
     {
       includes = [
-        (
-          {
-            nixos =
-              { pkgs, ... }:
-              {
-                users.users.${user.name}.packages = [ pkgs.hello ];
-              };
-          }
-        )
+        {
+          nixos =
+            { pkgs, ... }:
+            {
+              users.users.${user.name}.packages = [ pkgs.hello ];
+            };
+        }
       ];
     };
