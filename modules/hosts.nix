@@ -7,29 +7,27 @@
     users.test-user = { };
   };
 
-  den.aspects.test-host =
-    { host, ... }:
-    {
-      nixos.users.users.test-user = {
-        name = "Test User";
-        isNormalUser = true;
-      };
-    };
+  den.aspects.test-host.nixos.users.users.test-user = {
+    name = "Test User";
+    isNormalUser = true;
+  };
 
   den.default.includes = [
     den.aspects.routes
   ];
 
   pro.test-user._.test-host =
-    { host, user}:
+    { toHost, fromUser }:
     {
       includes = [
         {
           nixos =
             { pkgs, ... }:
             {
-              users.users.${user.name}.packages = [ pkgs.hello ];
+              users.users.${fromUser.name}.packages = [ pkgs.hello ];
             };
         }
       ];
     };
+
+}
